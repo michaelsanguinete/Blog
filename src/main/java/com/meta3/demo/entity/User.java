@@ -20,5 +20,8 @@ public class User {
 	private String nome;
 	@OneToMany
 	private List<Posts> listaPosts = new ArrayList<Posts>();
+	private String email;
+	private String senha;
+	
 
 }

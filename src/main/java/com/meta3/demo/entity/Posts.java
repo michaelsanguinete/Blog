@@ -18,7 +18,7 @@ public class Posts {
 	private Integer id;
 	private String mensagem;
 	@ManyToOne
-	private User user;
+	private User autor;
 	private Date dataCriacao;
 	private Date dataAlteracao;
 }
