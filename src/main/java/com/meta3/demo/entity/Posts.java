@@ -1,6 +1,6 @@
 package com.meta3.demo.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +19,6 @@ public class Posts {
 	private String mensagem;
 	@ManyToOne
 	private User autor;
-	private Date dataCriacao;
-	private Date dataAlteracao;
+	private LocalDateTime dataCriacao =  LocalDateTime.now();
+	private LocalDateTime dataAlteracao;
 }
