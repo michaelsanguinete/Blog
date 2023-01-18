@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.meta3.demo.dto.DetalhesPostDto;
@@ -48,8 +49,13 @@ public class PostController {
     }
     
     @GetMapping
-    public ResponseEntity<List<DetalhesPostDto>> getPost(){
-    	return this.postService.list();
+    public ResponseEntity<List<DetalhesPostDto>> listaPosts(@RequestParam(required = false) String nomeAutor){
+    	return this.postService.list(nomeAutor);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDto> getPost (@PathVariable int id) {
+        return this.postService.getPost(id);
     }
     
 }

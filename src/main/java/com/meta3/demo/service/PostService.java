@@ -31,8 +31,6 @@ public class PostService {
     
     @Autowired
     private ModelMapper modelMapper;
-    
-   // private User user;
 
     public ResponseEntity<PostDto> save (PostFormDto formDto){
 
@@ -68,16 +66,37 @@ public class PostService {
     	return ResponseEntity.notFound().build();
     }
     
-    public ResponseEntity<List<DetalhesPostDto>> list (){
+    public ResponseEntity<List<DetalhesPostDto>> list (String nome){
     	
-    	List<Posts> posts = postsRepository.findAll();
+        if (nome == null){
+       
+            List<Posts> posts = postsRepository.findAll();
     	
-    	List<DetalhesPostDto> postsDto = new ArrayList<>();
+    	    List<DetalhesPostDto> postsDto = new ArrayList<>();
     	
-    	posts.forEach(de -> postsDto.add(new DetalhesPostDto(de)));
+    	    posts.forEach(de -> postsDto.add(new DetalhesPostDto(de)));
     	
-    	return ResponseEntity.ok(postsDto);
+    	    return ResponseEntity.ok(postsDto);
+        }
+        else {
+            List<Posts> posts = postsRepository.findByAutor_Nome(nome);
     	
+    	    List<DetalhesPostDto> postsDto = new ArrayList<>();
+    	
+    	    posts.forEach(de -> postsDto.add(new DetalhesPostDto(de)));
+    	
+    	    return ResponseEntity.ok(postsDto);
+        }
+    	
+    }
+
+    public ResponseEntity<PostDto> getPost (int id){
+
+        Optional<Posts> optional = postsRepository.findById(id);
+        if (optional.isPresent()){
+            return ResponseEntity.ok(modelMapper.map(optional.get(), PostDto.class));
+        }
+        return ResponseEntity.notFound().build();
     }
 
     
