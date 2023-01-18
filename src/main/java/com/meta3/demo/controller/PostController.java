@@ -1,8 +1,11 @@
 package com.meta3.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.meta3.demo.dto.DetalhesPostDto;
 import com.meta3.demo.dto.PostDto;
 import com.meta3.demo.dto.PostFormDto;
 import com.meta3.demo.dto.PostFormDtoUpdate;
@@ -41,6 +45,11 @@ public class PostController {
     @Transactional
     public ResponseEntity<PostDto> updatePost (@PathVariable int id, @Valid @RequestBody PostFormDtoUpdate formDtoUpdate){
     	return this.postService.update(id, formDtoUpdate);
+    }
+    
+    @GetMapping
+    public ResponseEntity<List<DetalhesPostDto>> getPost(){
+    	return this.postService.list();
     }
     
 }

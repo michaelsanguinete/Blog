@@ -11,9 +11,9 @@ public class PostDto {
 
     private String mensagem;
 	private UserDto autor;
-	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
+	@JsonFormat(pattern = "dd-MM-yyyy HH:mm", shape = JsonFormat.Shape.STRING)
 	private LocalDateTime dataCriacao;
-	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
+	@JsonFormat(pattern = "dd-MM-yyyy HH:mm", shape = JsonFormat.Shape.STRING)
 	private LocalDateTime dataAlteracao;
     
 }
