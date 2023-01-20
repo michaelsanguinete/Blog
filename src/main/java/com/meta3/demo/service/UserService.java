@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.meta3.demo.dto.UserDto;
@@ -22,6 +23,7 @@ public class UserService {
 	
 	public ResponseEntity<UserDto> save (UserFormDto formDto){
 		User user = modelMapper.map(formDto, User.class);
+		user.setSenha(new BCryptPasswordEncoder().encode(formDto.getSenha()));
 		userRepository.save(user);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}

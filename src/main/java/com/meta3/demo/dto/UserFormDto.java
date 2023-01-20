@@ -12,7 +12,7 @@ public class UserFormDto {
 	@NotNull @NotEmpty
 	private String nome;
 	@NotNull @NotEmpty
-	private String email;
-	@NotNull @NotEmpty @Length(min = 8)
+	private String login;
+	@NotNull @NotEmpty @Length(min = 6, max = 16)
 	private String senha;
 }
