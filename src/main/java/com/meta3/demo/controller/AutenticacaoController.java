@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.meta3.demo.dto.LoginFormDto;
+import com.meta3.demo.dto.TokenDto;
+import com.meta3.demo.entity.User;
+import com.meta3.demo.security.TokenService;
 
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
@@ -21,25 +23,18 @@ public class AutenticacaoController {
 	@Autowired
 	private AuthenticationManager manager;
 	
+	@Autowired
+	private TokenService tokenService;
+	
+	@SuppressWarnings("rawtypes")
 	@PostMapping
 	public ResponseEntity efetuarLogin (@Valid @RequestBody LoginFormDto loginFormDto) {
-		var token = new UsernamePasswordAuthenticationToken(loginFormDto.getLogin(), loginFormDto.getSenha());
-		var authentication = manager.authenticate(token);
+		var authenticationtoken = new UsernamePasswordAuthenticationToken(loginFormDto.getLogin(), loginFormDto.getSenha());
+		var authentication = manager.authenticate(authenticationtoken);
+		var tokenJWT = tokenService.gerarToken((User) authentication.getPrincipal());
 		
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok(new TokenDto(tokenJWT));
 	}
 	
-//	@PostMapping
-//	public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginFormDto form) {
-//		UsernamePasswordAuthenticationToken dadosLogin = form.converter();
-//
-//		try {
-//			Authentication authentication = authManager.authenticate(dadosLogin);
-//			String token = tokenService.gerarToken(authentication);
-//			return ResponseEntity.ok(new TokenDTO(token, "Bearer"));
-//		} catch (AuthenticationException e) {
-//			return ResponseEntity.badRequest().build();
-//		}
-//	}
 
 }
