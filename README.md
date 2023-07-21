@@ -1,5 +1,4 @@
 # Blog
-Blog para processo seletivo da vaga de Trainee da Meta3.
 
 Vídeo de demonstração: https://www.youtube.com/watch?v=YdeGvApNcms
 
